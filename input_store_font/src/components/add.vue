@@ -1,15 +1,16 @@
 <template>
 <div>
   <div style="padding-left:10px;padding-right:10px">
-    <h1>北京林业大学第十五届青年教师教学基本功比赛（教学反思）</h1>
+    <h1>北京林业大学青年教师教学基本功比赛（教学反思）</h1>
   </div>
-  <div style="text-align:left;padding-left:100px;padding-top:20px;padding-bottom:20px">
-    教师姓名：<input v-model="user"/>
+  <div style="padding-left:100px;padding-top:20px;padding-bottom:20px;padding-right:100px;font-size:1.5em;margin-bottom: 20px;">
+    <div class="pay-service-textarea-text" style="float:left;">教师姓名：<input v-model="user"/></div>
+    <div style="float:right">当前您已经输入<span>{{ remnant }}</span>个汉字</div>
   </div>
   <div  style="padding-left:100px;padding-right:100px">
     <textarea style="width:100%; border:solid 1px #d8d8d8; border-radius:3px; font-size:20px; padding:10px;" rows="20" @input="descInput" v-model="desc"></textarea>
-    <p class="pay-service-textarea-text">当前您已经输入<span>{{ remnant }}</span>字符</p>
-    <Button type="primary" @click="handleSubmit()">提交</Button>
+    <Button :size="buttonSize" type="primary" @click="handleSubmit1()"><p style="font-size:1.5em">保存</p></Button>
+    <Button :size="buttonSize" type="primary" @click="handleSubmit()"><p style="font-size:1.5em">提交</p></Button>
   </div>
 </div>
 </template>
@@ -23,13 +24,16 @@ export default {
       remnant: 0,
       desc: '',
       maxlength: '',
-      user: ''
+      user: '',
+      buttonSize: 'large',
+      id: 0
     }
   },
   methods: {
     descInput () {
-      let desc = this.intToChinese(this.desc)
-      desc = this.translateString(desc)
+      // let desc = this.intToChinese(this.desc)
+      // desc = this.translateString(desc)
+      let desc = this.desc
       let cnReg = /([\u4e00-\u9fa5])/g
       let mat = desc.match(cnReg)
       var txtVal
@@ -40,14 +44,27 @@ export default {
       }
       this.remnant = txtVal
     },
+    handleSubmit1 () {
+      var name = this.user
+      var desc = this.desc
+      var id = this.id
+      axios.post('/api/add', { name: name, text: desc, id: id }).then(({ data }) => {
+        this.id = data[0].id
+        console.log(data[0].id)
+      })
+    },
     handleSubmit () {
       var name = this.user
       var desc = this.desc
-      axios.post('/api/add', { name: name, text: desc }).then(({ data }) => {
+      var id = this.id
+      axios.post('/api/add', { name: name, text: desc, id: id }).then(({ data }) => {
+        alert('已提交')
         this.desc = ''
-        this.maxlength = true
+        this.id = 0
+        this.user = ''
+        this.remnant = 0
       })
-    },
+    }/*,
     translateString (str) {
       const Translator = require('../assets/translator')
       let translator = new Translator()
@@ -94,7 +111,7 @@ export default {
           }
         }
       })
-    }
+    } */
   }
 }
 </script>

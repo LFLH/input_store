@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2019-12-03 19:38:11
+Date: 2020-11-23 23:15:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,11 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
+  `updatetime` datetime DEFAULT NULL,
+  `Year` varchar(255) DEFAULT NULL,
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) DEFAULT NULL,
-  `Text` text DEFAULT NULL,
+  `Text` text,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
