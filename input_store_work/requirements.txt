@@ -56,7 +56,7 @@ flask-allows==0.7.1
 Flask-BabelEx==0.9.3
 Flask-Bootstrap==3.3.7.1
 Flask-Caching==1.7.2
-Flask-Cors==3.0.3
+Flask-Cors==3.0.9
 Flask-HTTPAuth==3.2.3
 Flask-JWT==0.3.2
 Flask-KVSession==0.6.2
