@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "iview": "^3.5.3",
-    "loader-utils": "^1.2.3",
+    "loader-utils": "^1.4.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.5",
     "vue": "^2.5.2",
